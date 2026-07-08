@@ -9,6 +9,8 @@ const axios = require('axios');
 
 const FORWARD_URL = 'https://yingxiao.baidu.com/webhook/plateform/dy';
 
+const EVENT_LIST = ['verify_webhook', 'im_receive_msg'];
+
 // 将 payload 转发至营销平台
 async function forwardToYingxiao(payload) {
     try {
@@ -42,7 +44,7 @@ async function handleDouyin(payload) {
     const {event, client_key, content} = payload || {};
     console.log('[WebhookService] handleDouyin event:', event, 'client_key:', client_key, 'content:', content);
 
-    if (event === 'verify_webhook') {
+    if (EVENT_LIST.includes(event)) {
         return handleVerifyWebhook(content);
     }
 
