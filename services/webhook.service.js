@@ -30,7 +30,8 @@ async function forwardToYingxiao(payload) {
 
 // 处理抖音 verify_webhook 事件（签名验证）
 async function handleVerifyWebhook(payload) {
-    const {challenge} = payload || {};
+    const {content} = payload || {};
+    const {challenge} = content || {};
     console.log('[WebhookService] handleVerifyWebhook challenge:', challenge);
 
     // 转发至营销平台
@@ -45,7 +46,7 @@ async function handleDouyin(payload) {
     console.log('[WebhookService] handleDouyin event:', event, 'client_key:', client_key, 'content:', content);
 
     if (EVENT_LIST.includes(event)) {
-        return handleVerifyWebhook(content);
+        return handleVerifyWebhook(payload);
     }
 
     return {};
